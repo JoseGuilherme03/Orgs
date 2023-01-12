@@ -6,12 +6,17 @@ import android.widget.Button
 import android.widget.EditText
 import br.com.alura.orgs.R
 import br.com.alura.orgs.dao.ProdutosDao
+import br.com.alura.orgs.databinding.ActivityFormularioProdutoBinding
+import br.com.alura.orgs.databinding.ListaProdutosActivityBinding
 import br.com.alura.orgs.model.Produto
 import java.math.BigDecimal
 
-class FormularioProdutoActivity : AppCompatActivity(R.layout.activity_formulario_produto) {
+class FormularioProdutoActivity : AppCompatActivity() {
+    private val binding by lazy { ActivityFormularioProdutoBinding.inflate(layoutInflater) }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
         configuraBotaoSalvar()
     }
 
@@ -26,11 +31,11 @@ class FormularioProdutoActivity : AppCompatActivity(R.layout.activity_formulario
     }
 
     private fun criaProduto(): Produto {
-        val campoNome = findViewById<EditText>(R.id.formulario_produto_nome)
+        val campoNome = binding.formularioProdutoNome
         val nome = campoNome.text.toString()
-        val campoDescricao = findViewById<EditText>(R.id.formulario_produto_descricao)
+        val campoDescricao = binding.formularioProdutoDescricao
         val descricao = campoDescricao.text.toString()
-        val campoValor = findViewById<EditText>(R.id.formulario_produto_valor)
+        val campoValor = binding.formularioProdutoValor
         val valorEmTexto = campoValor.text.toString()
 
         val valor = if (valorEmTexto.isBlank()) {
