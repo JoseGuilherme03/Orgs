@@ -22,7 +22,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
 
     private fun configuraBotaoSalvar() {
         val dao = ProdutosDao()
-        val botaoSalvar = findViewById<Button>(R.id.formulario_produto_botao_salvar)
+        val botaoSalvar = binding.formularioProdutoBotaoSalvar
         botaoSalvar.setOnClickListener {
             val produtoNovo = criaProduto()
             dao.adiciona(produtoNovo)

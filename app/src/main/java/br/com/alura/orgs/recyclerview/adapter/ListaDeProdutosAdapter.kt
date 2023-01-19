@@ -2,13 +2,13 @@ package br.com.alura.orgs.recyclerview.adapter
 
 import android.content.Context
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import br.com.alura.orgs.R
 import br.com.alura.orgs.databinding.ProdutoItemBinding
 import br.com.alura.orgs.model.Produto
+import java.math.BigDecimal
+import java.text.NumberFormat
+import java.util.*
 
 class ListaDeProdutosAdapter(
     private val context: Context,
@@ -18,19 +18,26 @@ class ListaDeProdutosAdapter(
     private val listaProdutos = listaProdutos.toMutableList()
 
     class ViewHolder(binding: ProdutoItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        val nome = binding.produtoItemNome
-        val descricao = binding.produtoItemDescricao
-        val valor = binding.produtoItemPreco
+        private val nome = binding.produtoItemNome
+        private val descricao = binding.produtoItemDescricao
+        private val valor = binding.produtoItemPreco
+
 
         fun vincula(produto: Produto) {
+            val valorEmMoeda = formataEmMoedaBrasileira(produto.preco)
             nome.text = produto.nome
             descricao.text = produto.descricao
-            valor.text = produto.preco.toPlainString()
+            valor.text = valorEmMoeda
+        }
+
+        private fun formataEmMoedaBrasileira(valor: BigDecimal): String? {
+            val formatador: NumberFormat = NumberFormat.getCurrencyInstance(Locale("pt", "br"))
+            return formatador.format(valor)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = ProdutoItemBinding.inflate(LayoutInflater.from(context),parent,false)
+        val binding = ProdutoItemBinding.inflate(LayoutInflater.from(context), parent, false)
         return ViewHolder(binding)
     }
 
@@ -46,6 +53,7 @@ class ListaDeProdutosAdapter(
     fun atualiza(produtos: List<Produto>) {
         this.listaProdutos.clear()
         this.listaProdutos.addAll(produtos)
+        notifyDataSetChanged()
     }
 
 }
