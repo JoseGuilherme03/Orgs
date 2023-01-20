@@ -7,22 +7,35 @@ import br.com.alura.orgs.dao.ProdutosDao
 import br.com.alura.orgs.databinding.ActivityFormularioProdutoBinding
 import br.com.alura.orgs.databinding.DialogoAdicionaImagemBinding
 import br.com.alura.orgs.model.Produto
+import coil.load
 import java.math.BigDecimal
 
 class FormularioProdutoActivity : AppCompatActivity() {
     private val bindingActivityFormularioProduto by lazy {
         ActivityFormularioProdutoBinding.inflate(layoutInflater)
     }
-    private val binding2 by lazy { DialogoAdicionaImagemBinding.inflate(layoutInflater) }
+
+    private var url: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(bindingActivityFormularioProduto.root)
         configuraBotaoSalvar()
         bindingActivityFormularioProduto.formularioProdutoImageView.setOnClickListener {
+            val bindingDialogoAdiconaImagem by lazy {
+                DialogoAdicionaImagemBinding.inflate(layoutInflater)
+            }
+
+            bindingDialogoAdiconaImagem.dailogoAdicionaImagemButtonRefresh.setOnClickListener {
+                url = bindingDialogoAdiconaImagem.dialogoAdicionaImagemUrl.text.toString()
+                bindingDialogoAdiconaImagem.dialogoAdicionaImagemvazia.load(url)
+            }
+
             AlertDialog.Builder(this)
-                .setView(binding2.root)
+                .setView(bindingDialogoAdiconaImagem.root)
                 .setPositiveButton("CONFIRMAR") { _, _ ->
+                    url = bindingDialogoAdiconaImagem.dialogoAdicionaImagemUrl.text.toString()
+                    bindingActivityFormularioProduto.formularioProdutoImageView.load(url)
                 }
                 .setNegativeButton("CANCELAR") { _, _ ->
                 }
@@ -40,6 +53,7 @@ class FormularioProdutoActivity : AppCompatActivity() {
         }
     }
 
+
     private fun criaProduto(): Produto {
         val campoNome = bindingActivityFormularioProduto.formularioProdutoTextNome
         val nome = campoNome.text.toString()
@@ -54,6 +68,6 @@ class FormularioProdutoActivity : AppCompatActivity() {
             BigDecimal(valorEmTexto)
         }
 
-        return Produto(nome, descricao, valor)
+        return Produto(nome, descricao, valor, url)
     }
 }
