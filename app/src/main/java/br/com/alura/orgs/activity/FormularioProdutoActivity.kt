@@ -2,27 +2,37 @@ package br.com.alura.orgs.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import br.com.alura.orgs.R
+import androidx.appcompat.app.AlertDialog
 import br.com.alura.orgs.dao.ProdutosDao
 import br.com.alura.orgs.databinding.ActivityFormularioProdutoBinding
-import br.com.alura.orgs.databinding.ListaProdutosActivityBinding
+import br.com.alura.orgs.databinding.DialogoAdicionaImagemBinding
 import br.com.alura.orgs.model.Produto
 import java.math.BigDecimal
 
 class FormularioProdutoActivity : AppCompatActivity() {
-    private val binding by lazy { ActivityFormularioProdutoBinding.inflate(layoutInflater) }
+    private val bindingActivityFormularioProduto by lazy {
+        ActivityFormularioProdutoBinding.inflate(layoutInflater)
+    }
+    private val binding2 by lazy { DialogoAdicionaImagemBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+        setContentView(bindingActivityFormularioProduto.root)
         configuraBotaoSalvar()
+        bindingActivityFormularioProduto.formularioProdutoImageView.setOnClickListener {
+            AlertDialog.Builder(this)
+                .setView(binding2.root)
+                .setPositiveButton("CONFIRMAR") { _, _ ->
+                }
+                .setNegativeButton("CANCELAR") { _, _ ->
+                }
+                .show()
+        }
     }
 
     private fun configuraBotaoSalvar() {
         val dao = ProdutosDao()
-        val botaoSalvar = binding.formularioProdutoBotaoSalvar
+        val botaoSalvar = bindingActivityFormularioProduto.formularioProdutoBotaoSalvar
         botaoSalvar.setOnClickListener {
             val produtoNovo = criaProduto()
             dao.adiciona(produtoNovo)
@@ -31,11 +41,11 @@ class FormularioProdutoActivity : AppCompatActivity() {
     }
 
     private fun criaProduto(): Produto {
-        val campoNome = binding.formularioProdutoNome
+        val campoNome = bindingActivityFormularioProduto.formularioProdutoTextNome
         val nome = campoNome.text.toString()
-        val campoDescricao = binding.formularioProdutoDescricao
+        val campoDescricao = bindingActivityFormularioProduto.formularioProdutoTextDescricao
         val descricao = campoDescricao.text.toString()
-        val campoValor = binding.formularioProdutoValor
+        val campoValor = bindingActivityFormularioProduto.formularioProdutoTextValor
         val valorEmTexto = campoValor.text.toString()
 
         val valor = if (valorEmTexto.isBlank()) {
