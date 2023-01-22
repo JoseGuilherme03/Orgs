@@ -9,7 +9,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".activity.FormularioProdutoActivity">
+        tools:context=".ui.activity.FormularioProdutoActivity">
 
 
         <com.google.android.material.textfield.TextInputLayout
@@ -18,7 +18,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="16dp"
-            android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/formulario_produto_imageView">
@@ -26,8 +25,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/formulario_produto_text_nome"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Nome" />
+                android:layout_height="match_parent"
+                android:hint="Nome"
+                android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -36,7 +36,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:inputType="text"
             app:layout_constraintEnd_toEndOf="@id/formulario_produto_nome"
             app:layout_constraintStart_toStartOf="@id/formulario_produto_nome"
             app:layout_constraintTop_toBottomOf="@id/formulario_produto_nome">
@@ -44,8 +43,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/formulario_produto_text_descricao"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Descrição" />
+                android:layout_height="match_parent"
+                android:hint="Descrição"
+                android:inputType="text"/>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -56,7 +56,6 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:inputType="numberDecimal"
             app:layout_constraintEnd_toEndOf="@id/formulario_produto_descricao"
             app:layout_constraintStart_toStartOf="@id/formulario_produto_descricao"
             app:layout_constraintTop_toBottomOf="@id/formulario_produto_descricao">
@@ -64,8 +63,9 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/formulario_produto_text_valor"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Valor" />
+                android:layout_height="match_parent"
+                android:hint="Valor"
+                android:inputType="numberDecimal" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
